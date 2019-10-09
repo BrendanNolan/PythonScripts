@@ -1,3 +1,6 @@
+# The following is the hello-world example from
+# https://python-pptx.readthedocs.io/en/latest/user/quickstart.html
+
 from pptx import Presentation
 
 prs = Presentation()
