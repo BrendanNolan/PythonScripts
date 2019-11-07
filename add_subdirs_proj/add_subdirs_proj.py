@@ -4,7 +4,6 @@ from utils import is_string_blank, create_dir_if_not_existing, create_file_if_no
 
 
 def run(args):
-    #  Open file for reading and writing, placing the pointer at the beginning of the file.
     top_project_file = open(args.top_proj_path, "r")
 
     create_dir_if_not_existing(args.new_proj_path)
