@@ -19,7 +19,7 @@ def run(args):
         lines.append("#define " + macro + "\n\n")
         lines.append("class " + args.name + "\n")
         lines.append("{\n\n};\n\n")
-        lines.append("#endif\n")
+        lines.append("#endif // " + macro + "\n")
         file.writelines(lines)
         file.close()
     if not exists(path_to_source):
