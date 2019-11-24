@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 from os import chdir
+import glob
 from os.path import exists 
 from argparse import ArgumentParser
-from utils import append_to_line_and_insert_following_line
+from utils import append_to_line_and_insert_following_line, append_blank_line_if_necessary
 
 
 def run(args):
@@ -28,10 +29,11 @@ def run(args):
         file.writelines(["#include \"" + args.name + ".h\"\n"])
         file.close()
 
-    os.chdir(args.dir)
+    chdir(args.dir)
     proj_file_path = glob.glob("*.pro")[0]
     append_to_line_and_insert_following_line(proj_file_path, "HEADERS += \\", " \\", args.name + ".h")
     append_to_line_and_insert_following_line(proj_file_path, "SOURCES += \\", " \\", args.name + ".cpp")
+    append_blank_line_if_necessary(proj_file_path)
 
 
 def main():

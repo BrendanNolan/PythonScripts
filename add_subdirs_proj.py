@@ -1,43 +1,15 @@
 #! /usr/bin/env python
 
 from argparse import ArgumentParser
-from utils import is_string_blank, create_dir_if_not_existing, create_file_if_not_existing
+from utils import create_dir_if_not_existing, create_file_if_not_existing, append_blank_line_if_necessary, append_to_line_and_insert_following_line
 
 
 def run(args):
-    top_project_file = open(args.top_proj_path, "r")
+    create_dir_if_not_existing(args.new_proj_dir_name)
+    create_file_if_not_existing(args.new_proj_dir_name + "/" + args.name_of_new_pro_file + ".pro")
 
-    create_dir_if_not_existing(args.new_proj_path)
-    create_file_if_not_existing(args.new_proj_path + "/" + args.name_of_new_pro_file + ".pro")
-
-    lines = top_project_file.readlines()
-
-    subdirs_line_index = 0
-    subdirs_found = False
-    for line in lines:
-        if line.lstrip().startswith("SUBDIRS"):
-            subdirs_found = True
-            break
-        subdirs_line_index += 1
-
-    if subdirs_found:
-        i = subdirs_line_index
-        while i < len(lines) and not is_string_blank(lines[i]):
-            i += 1
-        prev_line = lines[i - 1].rstrip()
-        if prev_line[-1] != "\\":
-            lines[i - 1] = prev_line + " \\"
-        lines.insert(i, "\n    " + args.new_proj_path)
-    else:
-        lines.append("\n\nSUBDIRS = " + args.new_proj_path)
-
-    #  Make sure top .pro file ends with blank line
-    if not is_string_blank(lines[-1]):
-        lines.append("\n")
-
-    top_project_file = open(args.top_proj_path, "w")
-    top_project_file.writelines(lines)
-    top_project_file.close()
+    append_to_line_and_insert_following_line(args.top_proj_path, "SUBDIRS += \\", " \\", args.new_proj_dir_name)
+    append_blank_line_if_necessary(args.top_proj_path)
 
 
 def main():
@@ -49,9 +21,9 @@ def main():
         type=str,
         required=True)
     parser.add_argument(
-        "--new_proj_path",
-        help="Path to dir containing new .pro file",
-        dest="new_proj_path",
+        "--new_proj_dir_name",
+        help="dir containing new .pro file",
+        dest="new_proj_dir_name",
         type=str,
         required=True)
     parser.add_argument(

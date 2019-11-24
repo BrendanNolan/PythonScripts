@@ -25,6 +25,18 @@ def create_file_if_not_existing(path):
         file = open(path, "w")
         file.close()
 
+
+def append_blank_line_if_necessary(filepath):
+    file = open(filepath, 'r')
+    lines = file.readlines()
+    if not is_string_blank(lines[-1])
+    lines.append('\n')
+    file.close()
+    file = open(filepath, 'w')
+    file.writelines(lines)
+    file.close()
+
+
 def append_to_line_and_insert_following_line(filepath, line_of_interest, string_to_append, contents_to_insert_in_next_line):
     """This function searches the file with path `filepath` for the line 
     `line_of_interest`, appends `string_to_append` 
@@ -47,19 +59,14 @@ def append_to_line_and_insert_following_line(filepath, line_of_interest, string_
             index_of_blank_line += 1
         prev_line = lines[index_of_blank_line - 1].rstrip()
         if not prev_line.endswith(string_to_append):
-            lines[ndex_of_blank_line - 1] = prev_line + string_to_append
-        lines.insert(i, contents_to_insert_in_next_line)
+            lines[index_of_blank_line - 1] = prev_line + string_to_append
+        lines.insert(index_of_blank_line, "\n    " + contents_to_insert_in_next_line)
     else:
         lines.append("\n\n")
         lines.append(line_of_interest)
-        lines.append(contents_to_insert_in_next_line)
-
-    #  Make sure ends with blank line
-    if not is_string_blank(lines[-1]):
-        lines.append("\n")
+        lines.append("\n    " + contents_to_insert_in_next_line + '\n')
 
     file.close()
     file = open(filepath, 'w')
-
     file.writelines(lines)
     file.close()
