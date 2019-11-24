@@ -10,8 +10,8 @@ def recursively_get_files_with_ext(top_dir, ext):
     return ret
 
 
-def is_string_blank(string):
-    stripped = string.strip()
+def is_string_blank(the_string):
+    stripped = the_string.strip()
     return not stripped
 
 
@@ -31,7 +31,7 @@ def append_blank_line_if_necessary(filepath):
         for line in file:
             pass
         last_line = line
-        if last_line.strip() == '':
+        if last_line.endswith('\n') or last_line.endswith('\r\n') or last_line.strip() == '':
             return
     with open(filepath, 'a') as f:
         f.write('\n')
