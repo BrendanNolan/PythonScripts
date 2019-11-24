@@ -29,7 +29,7 @@ def create_file_if_not_existing(path):
 def append_blank_line_if_necessary(filepath):
     file = open(filepath, 'r')
     lines = file.readlines()
-    if not is_string_blank(lines[-1]):
+    if is_string_blank(lines[-1]):
         return
     lines.append('\n')
     file.close()
@@ -61,7 +61,7 @@ def append_to_line_and_insert_following_line(filepath, line_of_interest, string_
         prev_line = lines[index_of_blank_line - 1].rstrip()
         if not prev_line.endswith(string_to_append):
             lines[index_of_blank_line - 1] = prev_line + string_to_append
-        lines.insert(index_of_blank_line, "\n    " + contents_to_insert_in_next_line)
+        lines.insert(index_of_blank_line, "\n    " + contents_to_insert_in_next_line + '\n')
     else:
         lines.append("\n\n")
         lines.append(line_of_interest)
