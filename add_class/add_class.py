@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from os import makedirs
+from os import chdir
+import glob
 from os.path import exists 
 from argparse import ArgumentParser
 
@@ -26,6 +27,11 @@ def run(args):
         file = open(path_to_source, "w")
         file.writelines(["#include \"" + args.name + ".h\"\n"])
         file.close()
+
+    os.chdir(args.dir)
+    proj_file = open(glob.glob("*.pro")[0], 'w')
+
+
 
     
 
