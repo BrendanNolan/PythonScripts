@@ -1,8 +1,14 @@
-import os
 import glob
+import os
 
 
-def recursively_get_files_with_ext(top_dir, ext):
+def do_for_all_files(top_dir, action):
+    for dirpath, subdirs, files in os.walk(top_dir, topdown=True):
+        for file in files:
+            action(os.path.join(dirpath, file))
+
+
+def get_files_with_ext(top_dir, ext):
     ret = []
     for file in os.listdir(top_dir):
         if file.endswith(ext):

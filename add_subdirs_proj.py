@@ -5,6 +5,11 @@ from utils import create_dir_if_not_existing, create_file_if_not_existing, appen
 
 
 def run(args):
+
+    if exists(args.new_proj_dir_name) or exists (args.new_proj_dir_name + "/" + args.name_of_new_pro_file + ".pro"):
+        raise Exception("Project may already exist.")
+    # At some point I should change these to just create_dir and create_file
+    # which are probably just built-in functions
     create_dir_if_not_existing(args.new_proj_dir_name)
     create_file_if_not_existing(args.new_proj_dir_name + "/" + args.name_of_new_pro_file + ".pro")
 
