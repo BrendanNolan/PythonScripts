@@ -13,6 +13,8 @@ def run(args):
         return
     path_to_header = args.dir + "/" + args.name + ".h"
     path_to_source = args.dir + "/" + args.name + ".cpp"
+    if exists(path_to_header) or exists(path_to_source):
+        raise Exception('The class you are trying to add may already exist.')
     if not exists(path_to_header):
         file = open(path_to_header, "w")
         lines = []
