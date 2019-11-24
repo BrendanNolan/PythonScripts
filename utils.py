@@ -29,7 +29,8 @@ def create_file_if_not_existing(path):
 def append_blank_line_if_necessary(filepath):
     file = open(filepath, 'r')
     lines = file.readlines()
-    if not is_string_blank(lines[-1])
+    if not is_string_blank(lines[-1]):
+        return
     lines.append('\n')
     file.close()
     file = open(filepath, 'w')
