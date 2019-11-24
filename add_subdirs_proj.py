@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+
 from argparse import ArgumentParser
 from utils import is_string_blank, create_dir_if_not_existing, create_file_if_not_existing
 
